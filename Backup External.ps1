@@ -1,0 +1,1 @@
+Copy-Item -r -Path "D:\FILES*" -Destination "G:\FILES" -PassThru

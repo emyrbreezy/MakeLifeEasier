@@ -1,0 +1,37 @@
+$array = 'item01', 'item02', 'item03', 'item04'
+$count = 0
+$start = Get-Date
+[nullable[double]]$secondsRemaining = $null
+
+foreach ($item in $array) {
+    $count++
+    
+    # calculate percent complete
+    $percentComplete = ($count / $array.Count) * 100
+
+    # Define parameters for Write-Progress
+    $progressParameters = @{
+        Activity = "Doing my ting [$($count)/$($array.Count)] $($secondsElapsed.ToString('hh\:mm\:ss'))"
+        Status = 'Processing'
+        CurrentOperation = "Doing something with $item"
+        PercentComplete = $percentComplete
+    }
+
+    # if we have an estimate for the time remaining, add it to the Write-Progress parameters
+    if ($secondsRemaining) {
+        $progressParameters.SecondsRemaining = $secondsRemaining
+    }
+
+    # Write the progress bar
+    Write-Progress @progressParameters
+
+    # Insert code to be performed in each iteration of the array here
+    Start-Sleep –Milliseconds (Get-Random –Minimum 700 –Maximum 2000)
+
+    # estimate the time remaining
+    $secondsElapsed = (Get-Date) – $start
+    $secondsRemaining = ($secondsElapsed.TotalSeconds / $count) * ($array.Count – $count)
+}
+
+# Optional, if the progress bar don't go away by itself, un-comment this line
+#Write-Progress -Activity 'Doing my thing' -Completed

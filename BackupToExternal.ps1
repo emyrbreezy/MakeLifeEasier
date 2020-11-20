@@ -1,0 +1,1 @@
+Copy-Item -r -Path "C:\Users\a e s t h e t i c\Desktop\TEST*" -Destination "C:\Users\a e s t h e t i c\Desktop\mockdrive\" -PassThru
